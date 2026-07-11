@@ -1,0 +1,869 @@
+/* ==========================================================================
+   1. RESET BÁSICO E FONTES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    height: 100vh;
+    overflow: hidden; /* Evita barra de rolagem na tela inteira */
+}
+
+
+/* ==========================================================================
+   2. TELAS DE LOGIN E CADASTRO (SPLIT LAYOUT)
+   ========================================================================== */
+.split-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Lado Esquerdo: Branding */
+.branding-panel {
+    flex: 1.2;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 40px;
+}
+
+.branding-content {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+}
+
+.branding-content h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.branding-content p {
+    font-size: 18px;
+    color: #e2e8f0;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.features-list span {
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    width: fit-content;
+    backdrop-filter: blur(5px);
+}
+
+/* Lado Direito: Formulários */
+.login-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 420px;
+}
+
+.mobile-logo {
+    display: none;
+    color: #203a43;
+    margin-bottom: 30px;
+}
+
+.login-header {
+    margin-bottom: 35px;
+}
+
+.login-header h2 {
+    font-size: 28px;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.login-header p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #334155;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #0f172a;
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
+}
+
+.input-group input:focus {
+    border-color: #2c5364;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(44, 83, 100, 0.1);
+    outline: none;
+}
+
+.opcoes-extras {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.lembrar-mim {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+    cursor: pointer;
+}
+
+.opcoes-extras a {
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.opcoes-extras a:hover {
+    color: #0284c7;
+    text-decoration: underline;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: #203a43;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-login:hover {
+    background-color: #14252b;
+    transform: translateY(-1px);
+}
+
+.btn-login:active {
+    transform: translateY(1px);
+}
+
+.cadastro-link {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 15px;
+    color: #64748b;
+}
+
+.cadastro-link a {
+    color: #203a43;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cadastro-link a:hover {
+    text-decoration: underline;
+}
+
+.mensagem-erro {
+    color: #b91c1c;
+    background-color: #fef2f2;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #fca5a5;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    display: none;
+}
+
+
+/* ==========================================================================
+   3. LAYOUT DO PAINEL INTERNO (DASHBOARD)
+   ========================================================================== */
+.painel-body {
+    background-color: #f1f5f9; 
+}
+
+.app-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Menu Lateral (Sidebar) */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 30px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-header h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.sidebar-header p {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.sidebar-menu {
+    flex: 1;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-btn {
+    background: transparent;
+    color: #cbd5e1;
+    border: none;
+    text-align: left;
+    padding: 15px 25px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.menu-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left: 4px solid #38bdf8;
+}
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.sair-btn {
+    color: #fca5a5;
+    padding: 10px 0;
+}
+
+.sair-btn:hover {
+    color: #ef4444;
+}
+
+/* Área Central de Conteúdo */
+.content-area {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto; 
+}
+
+.header-aba {
+    margin-bottom: 30px;
+}
+
+.header-aba h1 {
+    color: #0f172a;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.header-aba p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* Controle de Abas */
+.tab-content {
+    display: none; 
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-painel {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+
+/* ==========================================================================
+   4. ÁREA DE PACIENTES (LISTA E CADASTRO)
+   ========================================================================== */
+.header-acoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-novo {
+    background-color: #203a43;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+}
+
+.btn-novo:hover { 
+    background-color: #14252b; 
+    transform: translateY(-2px); 
+}
+
+.barra-filtros {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px !important;
+}
+
+.input-busca, .select-filtro, .select-estilizado {
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background-color: #f8fafc;
+    color: #0f172a;
+    transition: all 0.2s;
+}
+
+.input-busca { flex: 2; }
+.select-filtro { flex: 1; }
+.input-busca:focus, .select-filtro:focus, .select-estilizado:focus { border-color: #38bdf8; }
+
+.select-estilizado { width: 100%; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.grid-cards-pacientes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card-paciente {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-paciente:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+    transform: translateY(-3px);
+}
+
+.card-paciente-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.avatar-letra {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.card-paciente h4 { color: #0f172a; font-size: 16px; margin-bottom: 5px;}
+.card-paciente p { color: #64748b; font-size: 13px; }
+
+.badge-status {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-ativo { background-color: #dcfce7; color: #166534; }
+.status-espera { background-color: #fef08a; color: #854d0e; }
+.status-alta { background-color: #e0e7ff; color: #3730a3; }
+
+
+/* ==========================================================================
+   5. PERFIL DO PACIENTE (PRONTUÁRIO)
+   ========================================================================== */
+.btn-voltar {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: color 0.2s;
+}
+
+.btn-voltar:hover { color: #0f172a; }
+
+.perfil-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.perfil-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #203a43, #2c5364);
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfil-avatar h2 { font-size: 32px; }
+.perfil-dados h1 { color: #0f172a; font-size: 24px; margin-bottom: 5px; }
+.perfil-dados p { color: #475569; font-size: 14px; margin-bottom: 3px; }
+
+.perfil-menu {
+    display: flex;
+    gap: 10px;
+    padding: 10px !important;
+}
+
+.sub-btn {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sub-btn:hover { background: #f1f5f9; color: #0f172a; }
+.sub-btn.active { background: #e0f2fe; color: #0284c7; font-weight: 600; }
+
+
+/* ==========================================================================
+   6. RESPONSIVIDADE (CELULARES E TABLETS)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .barra-filtros {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .split-layout {
+        flex-direction: column;
+    }
+    .branding-panel {
+        display: none; 
+    }
+    .mobile-logo {
+        display: block;
+    }
+    body {
+        overflow: auto; 
+    }
+    
+    .app-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+    .perfil-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* --- ESTILOS DO AVATAR CLICÁVEL (FOTO DO PACIENTE) --- */
+.perfil-avatar {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden; /* Mantém a imagem dentro da borda arredondada */
+}
+
+.perfil-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.avatar-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 15px;
+}
+
+.perfil-avatar:hover .avatar-overlay {
+    opacity: 1; /* Aparece a câmera ao passar o mouse */
+}
+
+/* --- ESTILOS DAS SUB-ABAS DO PRONTUÁRIO --- */
+.sub-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.sub-content.active {
+    display: block;
+}
+
+
+/* ==========================================================================
+   7. CARTÕES DA AGENDA DE SESSÕES
+   ========================================================================== */
+.sessao-card {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    transition: all 0.2s;
+}
+
+.sessao-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.sessao-data {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin-right: 15px;
+    min-width: 65px;
+}
+
+.sessao-data .dia {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1;
+}
+
+.sessao-data .mes {
+    display: block;
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.sessao-detalhes {
+    flex: 1;
+}
+
+.sessao-detalhes strong {
+    display: block;
+    color: #1e293b;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.sessao-detalhes span {
+    color: #059669; /* Verde financeiro */
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.sessao-acoes {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.select-status-sessao {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+    background: #f8fafc;
+    color: #334155;
+    cursor: pointer;
+}
+
+.select-status-sessao:focus {
+    border-color: #38bdf8;
+}
+
+.btn-desconto {
+    background: none;
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-desconto:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #94a3b8;
+}
+
+/* Efeito visual para sessões canceladas ou faltas */
+.sessao-card.status-inativo {
+    opacity: 0.6;
+    background: #f8fafc;
+}
+.sessao-card.status-inativo .sessao-detalhes span {
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+
+
+
+/* ==========================================================================
+   8. ESTILOS DO FINANCEIRO E IMPRESSÃO DE RECIBO
+   ========================================================================== */
+.finan-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.finan-item:hover { background: #f8fafc; }
+
+.btn-pagar {
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.btn-pagar:hover { background: #0284c7; }
+
+.badge-pago {
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Esconde a área de impressão na tela normal */
+#area-impressao-recibo {
+    display: none;
+}
+
+/* CONFIGURAÇÃO DA IMPRESSORA */
+@media print {
+    body * {
+        visibility: hidden; /* Esconde todo o sistema */
+    }
+    
+    #area-impressao-recibo, #area-impressao-recibo * {
+        visibility: visible; /* Mostra apenas o recibo */
+    }
+    
+    #area-impressao-recibo {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 40mm 20mm; /* Margens de folha A4 */
+        color: #000;
+        background: #fff;
+    }
+}
+
+/* Estilização Profissional do PDF */
+@media print {
+    body * { visibility: hidden; }
+    #area-impressao-recibo, #area-impressao-recibo * { visibility: visible; }
+    #area-impressao-recibo {
+        position: absolute; left: 0; top: 0; width: 100%; padding: 40px;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+    }
+    .recibo-container { border: 1px solid #e2e8f0; padding: 50px; border-radius: 12px; }
+    .recibo-header { border-bottom: 2px solid #334155; padding-bottom: 20px; margin-bottom: 30px; }
+    .recibo-titulo { font-size: 20px; color: #1e293b; text-transform: uppercase; letter-spacing: 2px; }
+    .recibo-tabela { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .recibo-tabela th { text-align: left; border-bottom: 1px solid #cbd5e1; padding: 10px; color: #64748b; }
+    .recibo-tabela td { padding: 10px; border-bottom: 1px solid #f1f5f9; }
+}
+
+
+/* ==========================================================================
+   9. DASHBOARD E INTELIGÊNCIA ARTIFICIAL (IA)
+   ========================================================================== */
+#lista-agenda-hoje { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    margin-top: 10px; 
+}
+
+.meet-btn { 
+    background: #6366f1; 
+    color: white; 
+    padding: 5px 10px; 
+    border-radius: 4px; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 12px; 
+}
+
+.analise-item { 
+    border-left: 4px solid #8b5cf6; 
+    padding: 10px; 
+    background: #f5f3ff; 
+    margin-bottom: 5px; 
+}
+
+
+/* ==========================================================================
+   10. MODAIS PADRONIZADOS (POPUPS)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: none; /* Inicia oculto, ativado via JavaScript */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+    animation: modalShow 0.3s ease;
+}
+
+@keyframes modalShow {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
